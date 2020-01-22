@@ -1,0 +1,15 @@
+{ "tsserver.enableJavascript": false,
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    },
+     "flow": {
+     "command": "flow-language-server",
+     "args": ["--stdio"],
+     "filetypes": ["javascript", "javascriptreact"],
+     "rootPatterns": [".flowconfig"]
+    }
+  }
+}
