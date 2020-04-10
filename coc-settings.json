@@ -10,6 +10,33 @@
      "args": ["--stdio"],
      "filetypes": ["javascript", "javascriptreact"],
      "rootPatterns": [".flowconfig"]
+    },
+     "ccls": {
+     "command": "ccls",
+     "filetypes": ["c", "cpp", "objc", "objcpp"],
+     "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+     "initializationOptions": {
+         "cache": {
+           "directory": "/tmp/ccls"
+         }
+       }
+    },
+    "intelephense": {
+            "command": "intelephense",
+            "args": ["--stdio"],
+            "filetypes": ["php"],
+            "initializationOptions": {
+                "storagePath": "/tmp/intelephense"
+            }
+        },
+    "efm": {
+      "command": "efm-langserver",
+      "args": ["-c", "/home/evu/.config/efm-langserver/config.yaml"],
+      "filetypes": ["vim", "eruby", "markdown", "yaml"]
+    },
+    "digestif": {
+      "command": "digestif",
+      "filetypes": ["tex", "plaintex", "context"]
     }
   }
 }

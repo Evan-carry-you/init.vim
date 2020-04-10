@@ -3,8 +3,10 @@ set encoding=utf-8
 set pyxversion=3
 set number
 set relativenumber
+set colorcolumn=80,110 " 设置垂直标线
+set termguicolors
+" set guifont=Inconsolata\ h30
 syntax on
-			\
 
 "插件管理
 call plug#begin('/.local/share/nvim/plugged')
@@ -22,8 +24,21 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tmhedberg/SimpylFold'
 Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go',{'do': ':GoUpdateBinaries'}
+Plug 'vim-scripts/mru.vim'
+Plug 'majutsushi/tagbar'
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'Yggdroot/indentLine'
+Plug 'w0ng/vim-hybrid'
+Plug 'ayu-theme/ayu-vim'
+Plug 'cocopon/pgmnt.vim'
+Plug 'tpope/vim-surround'
+Plug 'jszakmeister/markdown2ctags'
+"Plug 'MattesGroeger/vim-bookmarks'
 call plug#end()
 
 
@@ -34,8 +49,10 @@ let g:airline_theme='kalisi'
 let g:jedi#completions_enabled = 0 " disable autocompletion, cause we use deoplete for completion
 let g:jedi#use_splits_not_buffers = "right" " open the go-to function in split, not another buffer
 let g:neomake_python_enabled_makers = ['pylint'] "设置pylint为语言检查
-
-
+let g:instant_markdown_slow = 1 " 设置 markdown 渲染延迟
+let g:tagbar_ctags_bin='/usr/bin/ctags'  " 设置ctags所在路径
+" let g:tagbar_width=30　" 设置tagbar的宽度
+"
 "按键映射
 let mapleader = " " "将leader键映射到空格
 map S :w<CR>
@@ -43,15 +60,22 @@ map sl :set nosplitright<CR>:vsplit<CR>
 map sr :set splitright<CR>:vsplit<CR>
 map su :set nosplitbelow<CR>:split<CR>
 map sd :set splitbelow<CR>:split<CR>
-map <LEADER>h <C-w>h
-map <LEADER>j <C-w>j
-map <LEADER>k <C-w>k
-map <LEADER>l <C-w>l
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 map <up> :resize+5<CR>
 map <down> :resize-5<CR>
 map <left> :vertical resize-5<CR>
 map <right> :vertical resize+5<CR>
 map ff :NERDTree<CR>
+nmap <C-b> <C-B>
+"nmap <F8> :TagbarToggle<CR>
+nmap <Leader>tt :TagbarToggle<CR>  " 将开启tagbar的快捷键设置为　<Leader>tb
+nmap <C-p>f :Leaderf file<CR>
+nmap <C-p>ff :Leaderf function<CR>
+"map <C-P> mp
+"map <C-M> mn
 
 
 "其他配置
@@ -59,9 +83,16 @@ call neomake#configure#automake('nrwi', 500) "自动代码检查
 hi HighlightedyankRegion cterm=reverse gui=reverse "配置yarnk高亮
 let g:highlightedyank_highlight_duration = 1000 " 高亮持续时间为 1000 毫秒
 colorscheme gruvbox " 设置主题
-set background=dark " 或者 set background=light
-let g:gruvbox_contrast_dark="medium"
-
+" colorscheme hybrid " 设置主题
+" set background=light " 或者 set background=light
+" let g:gruvbox_contrast_dark="medium"
+" set t_Co=256   " This is may or may not needed.
+" set background=light
+" colorscheme PaperColor
+" let ayucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
+" colorscheme ayu
 
 "COC
 " if hidden is not set, TextEdit might fail.
@@ -114,6 +145,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+" 快速文件查看快捷键
+
+nmap <C-e> :Leaderf mru<cr>
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -192,3 +226,16 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+"let g:airline_theme='papercolor'
+"let g:PaperColor_Theme_Options = {
+  "\   'theme': {
+  "\     'default.dark': {
+  "\       'override' : {
+  "\         'color00' : ['#080808', '232'],
+  "\         'linenumber_bg' : ['#080808', '232']
+  "\       },
+  "\       'allow_bold':1
+  "\     }
+  "\   }
+  "\ }
